@@ -1,1 +1,2 @@
-export { default as Foo } from './Foo';
+import TaroEventSource from './TaroEventSource';
+export default TaroEventSource;

@@ -52,7 +52,8 @@
   },
   "peerDependencies": {
     "react": ">=16.9.0",
-    "react-dom": ">=16.9.0"
+    "react-dom": ">=16.9.0",
+    "@tarojs/taro": ">=3.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
