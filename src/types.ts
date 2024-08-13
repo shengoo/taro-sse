@@ -10,7 +10,7 @@ export interface RequestConfig {
   /**
    * 设置请求的 header，header 中不能设置 Referer。content-type 默认为 application/json
    */
-  headers?: {
+  header?: {
     [key: string]: string;
   };
   /**
