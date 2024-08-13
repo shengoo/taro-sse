@@ -1,7 +1,8 @@
 {
   "name": "taro-sse",
-  "version": "0.0.1",
-  "description": "A react library developed with dumi",
+  "version": "0.0.2",
+  "description": "A server-sent events client for Taro",
+  "homepage": "https://github.com/shengoo/taro-sse",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

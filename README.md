@@ -7,37 +7,30 @@ A react library developed with dumi
 
 ## Usage
 
-TODO
+```bash
+npm install taro-sse --save
+```
+
+```js
+import SSE from 'taro-sse';
+
+const sse = new SSE({
+  url: 'http://localhost:3000/sse',
+});
+sse.on('message', (data) => {
+  console.log(data);
+});
+sse.on('open', () => {
+  console.log('open');
+});
+sse.on('error', (err) => {
+  console.log(err);
+});
+sse.on('close', () => {
+  console.log('close');
+});
+```
 
 ## Options
 
-TODO
-
-## Development
-
-```bash
-# install dependencies
-$ pnpm install
-
-# develop library by docs demo
-$ pnpm start
-
-# build library source code
-$ pnpm run build
-
-# build library source code in watch mode
-$ pnpm run build:watch
-
-# build docs
-$ pnpm run docs:build
-
-# Locally preview the production build.
-$ pnpm run docs:preview
-
-# check your project for potential problems
-$ pnpm run doctor
-```
-
-## LICENSE
-
-MIT
+[Options](https://developers.weixin.qq.com/miniprogram/dev/api/network/request/wx.request.html)
