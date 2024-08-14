@@ -1,6 +1,6 @@
 {
   "name": "taro-sse",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A server-sent events client for Taro",
   "homepage": "https://github.com/shengoo/taro-sse",
   "module": "dist/index.js",

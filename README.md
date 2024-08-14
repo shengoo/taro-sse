@@ -29,6 +29,7 @@ sse.on('error', (err) => {
 sse.on('close', () => {
   console.log('close');
 });
+sse.connect();
 ```
 
 ## Options

@@ -13,10 +13,10 @@ interface Listeners {
 }
 
 export default class TaroEventSource<T = any> {
-  config: RequestConfig;
-  listeners: Listeners;
-  requestTask: RequestTask<T> | null;
-  halfString: string = '';
+  private config: RequestConfig;
+  private listeners: Listeners;
+  private requestTask: RequestTask<T> | null;
+  private halfString: string = '';
 
   /**
    * 构造函数
@@ -27,7 +27,6 @@ export default class TaroEventSource<T = any> {
     this.config = config;
     this.listeners = {};
     this.requestTask = null;
-    this.connect();
   }
   /**
    * 连接请求
@@ -64,21 +63,17 @@ export default class TaroEventSource<T = any> {
    * @param res.data ArrayBuffer类型的数据
    * @returns 无返回值
    */
-  handleChunk(res: { data: ArrayBuffer }) {
+  private handleChunk(res: { data: ArrayBuffer }) {
     // 将传入的 ArrayBuffer 赋值给 arrayBuffer 变量
     const arrayBuffer = res.data;
     // 将 arrayBuffer 转换为 Uint8Array 类型，并赋值给 uint8Array 变量
     const uint8Array = new Uint8Array(arrayBuffer);
     // 将 uint8Array 转换为 Base64 编码的字符串，并赋值给 data 变量
-    let data = Taro.arrayBufferToBase64(uint8Array);
+    const dataBase64 = Taro.arrayBufferToBase64(uint8Array);
     // 将 Base64 编码的字符串转换为 utf8 编码的字符串，并重新赋值给 data 变量
-    data = Buffer.from(data, 'base64').toString('utf8');
-    // 调用 parseEventData 方法解析 data，并将结果赋值给 eventData 变量
-    const eventData = this.parseEventData(data);
-    // 如果 eventData 的 data 属性不存在，则直接返回
-    if (!eventData?.data) return;
+    const data = Buffer.from(dataBase64, 'base64').toString('utf8');
     // 触发事件，事件名为 eventData.event 或 'message'，并传递 { data: eventData.data } 作为参数
-    this.emit(eventData.event || 'message', { data: eventData.data });
+    this.emit('message', data);
   }
 
   /**
@@ -87,7 +82,7 @@ export default class TaroEventSource<T = any> {
    * @param data 待解析的字符串数据
    * @returns 解析后的事件数据对象
    */
-  parseEventData(data: string): EventData {
+  private parseEventData(data: string): EventData {
     const lines = data.split('\n');
     const result: EventData = {};
     const linesArr = lines.filter((l) => l.length);
@@ -143,7 +138,7 @@ export default class TaroEventSource<T = any> {
    * @param event 事件类型，可选值为 'success' | 'error' | 'open' | 'message'
    * @param callback 回调函数，当事件触发时执行，参数为事件数据
    */
-  addEventListener(
+  public on(
     // 事件类型，可选值为 'success'、'error'、'open'、'message'
     event: 'success' | 'error' | 'open' | 'message',
     // 回调函数，参数为任意类型的数据
@@ -163,7 +158,7 @@ export default class TaroEventSource<T = any> {
    * @param event 事件名称
    * @param data 事件数据
    */
-  emit(event: string, data: any) {
+  private emit(event: string, data: any) {
     // 如果存在对应事件的监听器
     if (this.listeners[event]) {
       // 遍历所有监听器
@@ -179,7 +174,7 @@ export default class TaroEventSource<T = any> {
    *
    * 如果当前实例存在请求任务，则调用其abort方法终止请求
    */
-  close() {
+  public close() {
     // 如果存在请求任务
     if (this.requestTask) {
       // 终止请求任务
