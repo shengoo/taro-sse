@@ -3,7 +3,7 @@
 [![NPM version](https://img.shields.io/npm/v/taro-sse.svg?style=flat)](https://npmjs.org/package/taro-sse)
 [![NPM downloads](http://img.shields.io/npm/dm/taro-sse.svg?style=flat)](https://npmjs.org/package/taro-sse)
 
-A react library developed with dumi
+A server-sent events client for Taro
 
 ## Usage
 
